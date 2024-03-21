@@ -1,12 +1,16 @@
 const { ethers } = require("hardhat");
 
 async function main() {
+  console.log("pre")
+  const [owner] = await ethers.getSigners()
+  console.log("post :", owner)
   const transactionCount = await owner.getTransactionCount();
+  console.log(transactionCount)
 
   // gets the address of the token before it is deployed
   const futureAddress = ethers.utils.getContractAddress({
     from: owner.address,
-    nonce: transactionCount + 1
+    nonce: transactionCount
   });
 
   const MyGovernor = await ethers.getContractFactory("MyGovernor");
